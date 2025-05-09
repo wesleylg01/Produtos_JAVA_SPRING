@@ -1,4 +1,4 @@
-package com.wgltchenology.produtos.service.impl;
+package com.wgltchenology.produtos.service;
 
 import com.wgltchenology.produtos.model.Produto;
 

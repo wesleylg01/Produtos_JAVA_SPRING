@@ -1,7 +1,6 @@
-package com.wgltchenology.produtos.service;
-
+package com.wgltchenology.produtos.service.impl;
+import com.wgltchenology.produtos.service.IProdutoService;
 import com.wgltchenology.produtos.model.Produto;
-import com.wgltchenology.produtos.service.impl.IProdutoService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,5 +21,10 @@ public class ProdutoService implements IProdutoService {
     @Override
     public Produto GetById(int productId){
         return new Produto (1, "Pen Drive","Pen Driver Kingston 32 Gb", new BigDecimal("49.99"));
+    }
+
+    public static interface IProdutoService {
+        List<Produto> GetAll();
+        Produto GetById(int productId);
     }
 }

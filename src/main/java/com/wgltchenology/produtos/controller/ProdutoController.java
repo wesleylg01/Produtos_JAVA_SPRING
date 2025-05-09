@@ -1,15 +1,12 @@
 package com.wgltchenology.produtos.controller;
 
-import com.wgltchenology.produtos.ProdutosApplication;
 import com.wgltchenology.produtos.model.Produto;
-import com.wgltchenology.produtos.service.ProdutoService;
-import com.wgltchenology.produtos.service.impl.IProdutoService;
+import com.wgltchenology.produtos.service.IProdutoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class ProdutoController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<?> getById(@PathVariable int productId) {
-        if (productId <= 0) {
+        if (productId < 1) {
             return ResponseEntity.badRequest().body("O Id informado é inválido");
         }
 
