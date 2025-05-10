@@ -2,7 +2,9 @@ package com.wgltchenology.produtos.service.impl;
 import com.wgltchenology.produtos.repository.ProdutoRepository;
 import com.wgltchenology.produtos.service.IProdutoService;
 import com.wgltchenology.produtos.model.Produto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ProdutoService implements IProdutoService {
 
     @Override
     public Produto getById(long productId){
-        return produtoRepository.findById(productId).orElse(null);
+        return produtoRepository.findById(productId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
     }
 
     @Override
