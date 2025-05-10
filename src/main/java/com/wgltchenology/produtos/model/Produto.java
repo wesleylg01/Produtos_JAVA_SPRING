@@ -1,21 +1,23 @@
 package com.wgltchenology.produtos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-import java.math.BigDecimal;
 
 
-@Table(name="Products")
+@Table(name="produto")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
 
 public class Produto {
-    private int id;
-    private String nome;
+    @Id
+    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nome;    @Column
     private String descricao;
-    private BigDecimal preco;
+    private Double preco;
 }

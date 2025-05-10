@@ -3,10 +3,7 @@ package com.wgltchenology.produtos.controller;
 import com.wgltchenology.produtos.model.Produto;
 import com.wgltchenology.produtos.service.IProdutoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class ProdutoController {
 
     @GetMapping
     public List<Produto> GetAll(){
-        return produtoService.GetAll();
+        return produtoService.getAll();
     }
 
     @GetMapping("/{productId}")
@@ -30,12 +27,45 @@ public class ProdutoController {
             return ResponseEntity.badRequest().body("O Id informado é inválido");
         }
 
-        Produto produto = produtoService.GetById(productId);
+        Produto produto = produtoService.getById(productId);
 
         if (produto == null) {
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(produto);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> create(@RequestBody Produto produto) {
+        boolean created = produtoService.create(produto);
+        if (!created) {
+            return ResponseEntity.badRequest().build(); // ou outra lógica
+        }
+        return ResponseEntity.status(201).build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody Produto produto) {
+        boolean updated = produtoService.update(produto);
+        if (!updated) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(200).build();
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> Delete(@PathVariable int productId){
+        if (productId < 1) {
+            return ResponseEntity.badRequest().body("O Id informado é inválido");
+        }
+
+        var deleted = produtoService.delete(productId);
+
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
